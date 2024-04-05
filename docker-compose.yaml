@@ -3,6 +3,9 @@ services:
     build: ./mysite
     ports:
       - "8000:8000"
+    volumes:
+      - ./mysite/.pg_service.conf:/home/appuser/.pg_service.conf
+      - ./mysite/.pgpass:/app/.pgpass
   postgres:
     image: postgres:15
     environment:
