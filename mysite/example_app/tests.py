@@ -1,3 +1,6 @@
 from django.test import TestCase
 
-# Create your tests here.
+class Test(TestCase):
+    def test(self):
+        resp = self.client.get("/example_app/")
+        self.assertEqual(resp.status_code, 200)
