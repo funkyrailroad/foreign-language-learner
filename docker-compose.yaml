@@ -6,6 +6,8 @@ services:
     volumes:
       - ./mysite/.pg_service.conf:/home/appuser/.pg_service.conf
       - ./mysite/.pgpass:/app/.pgpass
+    env_file:
+      - .env
   postgres:
     image: postgres:15
     environment:
