@@ -2,10 +2,29 @@
 
 Start it up:
 ```
-docker compose up -d
+./run.sh
+```
+or
+```
+./run_dev.sh
 ```
 
 Watch the logs
 ```
-docker compose logs -f
+./logs.sh
+```
+
+Drop into a shell inside the backend container
+```
+./exec.sh
+```
+
+Psql into the database
+```
+./psql.sh
+```
+
+Power it down
+```
+./down.sh
 ```
