@@ -8,6 +8,12 @@ services:
       - postgres
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "bash", "healthcheck.sh"]
+      interval: 1m
+      timeout: 3s
+      retries: 2
+      start_period: 3s
   postgres:
     image: postgres:15
     environment:
