@@ -14,5 +14,7 @@ services:
       POSTGRES_DB: mysite
       POSTGRES_PASSWORD: mypassword
       POSTGRES_USER: myuser
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
