@@ -4,8 +4,6 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./mysite/.pg_service.conf:/home/appuser/.pg_service.conf
-      - ./mysite/.pgpass:/app/.pgpass
     depends_on:
       - postgres
     env_file:
