@@ -1,0 +1,7 @@
+services:
+  backend:
+    volumes:
+      - ./mysite:/app/
+    stdin_open: true
+    tty: true
+    entrypoint: bash entrypoint-dev.sh

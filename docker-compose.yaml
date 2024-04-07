@@ -3,7 +3,6 @@ services:
     build: ./mysite
     ports:
       - "8000:8000"
-    volumes:
     depends_on:
       - postgres
     env_file:
