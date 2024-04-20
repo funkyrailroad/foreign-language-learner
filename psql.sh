@@ -1,3 +1,3 @@
 #! /bin/bash
 
-docker exec -it django-starter-project-postgres-1 psql -U myuser -d mysite
+docker exec -it $IMAGE_PREFIX-postgres-1 psql -U myuser -d mysite
