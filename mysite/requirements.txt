@@ -10,5 +10,7 @@ Pygments==2.17.2
 pyrepl==0.9.0
 setuptools==69.1.1
 sqlparse==0.4.4
+translators==5.9.1
 wheel==0.43.0
+whisper==1.1.10
 wmctrl==0.5

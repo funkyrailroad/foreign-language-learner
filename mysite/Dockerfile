@@ -1,5 +1,8 @@
 FROM python:3
 
+RUN apt update -y
+RUN apt install -y nodejs
+
 RUN useradd -ms /bin/bash appuser
 USER appuser
 
