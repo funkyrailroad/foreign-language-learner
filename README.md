@@ -14,6 +14,26 @@ or
 ./run_dev.sh
 ```
 
+Make migrations
+```
+./makemigrations.sh
+```
+
+Apply migrations
+```
+./migrate.sh
+```
+
+Start a new django app
+```
+./startapp.sh
+```
+
+Run full django test suite
+```
+./test.sh
+```
+
 Watch the logs
 ```
 ./logs.sh
