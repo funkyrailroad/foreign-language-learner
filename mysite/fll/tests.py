@@ -31,3 +31,37 @@ class TranslationTests(TestCase):
 
         translation = u.translate_to_swahili(self.text)
         self.assertEqual(translation, gt_translation)
+
+
+class AudioNoteViewSetTests(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.english = "I want to learn foreign languages."
+        self.german = "Ich möchte Fremdsprachen lernen."
+        self.italian = "Voglio imparare le lingue straniere."
+        self.spanish = "Quiero aprender idiomas extranjeros."
+        self.swahili = "Nataka kujifunza lugha za kigeni."
+
+    def test_create(self):
+        resp = self.client.post(
+            "/fll/audio-notes/",
+            data={
+                "english": self.english,
+                "german": self.german,
+                "italian": self.italian,
+                "spanish": self.spanish,
+                "swahili": self.swahili,
+            },
+        )
+        self.assertEqual(resp.status_code, 201)
+        data = resp.json()
+        url = data["url"]
+
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        data = resp.json()
+        self.assertEqual(data["english"], self.english)
+        self.assertEqual(data["german"], self.german)
+        self.assertEqual(data["italian"], self.italian)
+        self.assertEqual(data["spanish"], self.spanish)
+        self.assertEqual(data["swahili"], self.swahili)
