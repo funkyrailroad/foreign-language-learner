@@ -2,6 +2,7 @@ asgiref==3.8.1
 attrs==23.2.0
 daphne==4.1.0
 Django==5.0.4
+djangorestframework==3.15.1
 fancycompleter==0.9.1
 pdbpp==0.10.3
 psycopg2-binary==2.9.9
