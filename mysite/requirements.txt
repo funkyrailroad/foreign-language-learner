@@ -4,6 +4,7 @@ daphne==4.1.0
 Django==5.0.4
 djangorestframework==3.15.1
 fancycompleter==0.9.1
+openai-whisper==20231117
 pdbpp==0.10.3
 psycopg2-binary==2.9.9
 Pygments==2.17.2
@@ -12,5 +13,4 @@ setuptools==69.1.1
 sqlparse==0.4.4
 translators==5.9.1
 wheel==0.43.0
-whisper==1.1.10
 wmctrl==0.5

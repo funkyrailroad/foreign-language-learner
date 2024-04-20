@@ -8,7 +8,7 @@ def transcribe_audio_with_whisper(fp):
     return result["text"].strip()
 
 
-# model = whisper.load_model("base.en")
+model = whisper.load_model("base.en")
 
 
 def translate_to_german(text):

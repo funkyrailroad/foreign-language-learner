@@ -1,6 +1,16 @@
+import os
 from django.test import TestCase
 
 import fll.util as u
+
+class TranscriptionTests(TestCase):
+    def test_transcribe_audio(self):
+        fp = "./fll/Voice 182.wav"
+        with open(fp) as f:
+            print(f)
+        transcription = u.transcribe_audio_with_whisper(fp)
+        gt_text = "Things to do whenever I'm in a new place. Find a pull-up bar."
+        self.assertEqual(transcription, gt_text)
 
 
 class TranslationTests(TestCase):
