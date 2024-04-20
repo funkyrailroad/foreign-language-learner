@@ -1,1 +1,1 @@
-export IMAGE_PREFIX=django-starter-project
+export IMAGE_PREFIX=foreign-language-learner
