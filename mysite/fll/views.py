@@ -1,5 +1,3 @@
-from django.http import HttpResponse
-from django.shortcuts import render
 from django.template.response import TemplateResponse
 
 from rest_framework import viewsets
@@ -16,5 +14,6 @@ class AudioNoteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows audio notes to be viewed or edited.
     """
+
     queryset = AudioNote.objects.all()
     serializer_class = AudioNoteSerializer
