@@ -11,4 +11,5 @@ router.register(r"audio-notes", views.AudioNoteViewSet)
 urlpatterns = [
     path("", include(router.urls)),
     path("", views.index, name="index"),
+    path("transcribe/", views.TranscriptionView.as_view()),
 ]

@@ -3,14 +3,22 @@ from django.test import TestCase
 
 import fll.util as u
 
+
 class TranscriptionTests(TestCase):
+    def setUp(self):
+        self.fp = "./fll/Voice 182.wav"
+
+    def test_send_file_in_request(self):
+        resp = self.client.post("/fll/transcribe/", data={"audio": open(self.fp, "rb")})
+        print(resp.json())
+
     def test_transcribe_audio(self):
-        fp = "./fll/Voice 182.wav"
-        with open(fp) as f:
-            print(f)
-        transcription = u.transcribe_audio_with_whisper(fp)
+        transcription = u.transcribe_audio_with_whisper(self.fp)
         gt_text = "Things to do whenever I'm in a new place. Find a pull-up bar."
         self.assertEqual(transcription, gt_text)
+
+    def test_audio_input(self):
+        pass
 
 
 class TranslationTests(TestCase):

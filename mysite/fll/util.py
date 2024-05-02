@@ -3,7 +3,8 @@ import whisper
 import translators as ts
 
 
-def transcribe_audio_with_whisper(fp):
+def transcribe_audio_with_whisper(fp: str):
+    # TODO: get this to work with an inmemory uploaded file
     result = model.transcribe(fp)
     return result["text"].strip()
 
