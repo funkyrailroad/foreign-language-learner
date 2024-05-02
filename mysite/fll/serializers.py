@@ -11,8 +11,20 @@ class AudioNoteHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer
 
     class Meta:
         model = AudioNote
-        fields = ["english", "german", "italian", "spanish", "swahili"]
-        read_only_fields = ["german", "italian", "spanish", "swahili"]
+        fields = [
+            "english",
+            "german",
+            "italian",
+            "spanish",
+            "swahili",
+            "url",
+        ]
+        read_only_fields = [
+            "german",
+            "italian",
+            "spanish",
+            "swahili",
+        ]
 
     def create(self, validated_data):
         english = validated_data["english"]
