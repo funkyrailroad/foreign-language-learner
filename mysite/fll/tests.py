@@ -9,7 +9,12 @@ class TranscriptionTests(TestCase):
         self.gt_text = "Things to do whenever I'm in a new place. Find a pull-up bar."
 
     def test_send_file_in_request(self):
-        resp = self.client.post("/fll/transcribe/", data={"audio": open(self.fp, "rb")})
+        resp = self.client.post(
+            "/fll/transcribe/",
+            data={
+                "audio": open(self.fp, "rb"),
+            },
+        )
         data = resp.json()
         transcription = data["transcription"]
         self.assertEqual(transcription, self.gt_text)
