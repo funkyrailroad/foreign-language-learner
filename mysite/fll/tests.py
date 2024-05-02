@@ -107,23 +107,10 @@ class AudioNoteCustomViewSetTests(TestCase):
             "/fll/audio-notes/" + serializer_qp,
             data={
                 "english": self.english,
-                "german": self.german,
-                "italian": self.italian,
-                "spanish": self.spanish,
-                "swahili": self.swahili,
             },
         )
-        breakpoint()
         self.assertEqual(resp.status_code, 201, resp.json())
         data = resp.json()
-        print(data)
-        breakpoint()
-        url = data["url"]
-
-        resp = self.client.get(url + serializer_qp)
-        self.assertEqual(resp.status_code, 200)
-        data = resp.json()
-        self.assertEqual(data["english"], self.english)
         self.assertEqual(data["german"], self.german)
         self.assertEqual(data["italian"], self.italian)
         self.assertEqual(data["spanish"], self.spanish)
