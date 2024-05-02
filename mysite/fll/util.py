@@ -5,8 +5,7 @@ import whisper
 import translators as ts
 
 
-def transcribe_audio_with_whisper(fp: str):
-    # TODO: get this to work with an inmemory uploaded file
+def transcribe_audio_with_whisper(fp: str) -> str:
     result = model.transcribe(fp)
     return result["text"].strip()
 
@@ -14,23 +13,23 @@ def transcribe_audio_with_whisper(fp: str):
 model = whisper.load_model("base.en")
 
 
-def translate_to_german(text):
+def translate_to_german(text: str) -> str:
     return ts.translate_text(text, to_language="de")
 
 
-def translate_to_italian(text):
+def translate_to_italian(text: str) -> str:
     return ts.translate_text(text, to_language="it")
 
 
-def translate_to_spanish(text):
+def translate_to_spanish(text: str) -> str:
     return ts.translate_text(text, to_language="es")
 
 
-def translate_to_swahili(text):
+def translate_to_swahili(text: str) -> str:
     return ts.translate_text(text, to_language="sw")
 
 
-def transcribe_in_memory_uploaded_file(file: InMemoryUploadedFile):
+def transcribe_in_memory_uploaded_file(file: InMemoryUploadedFile) -> str:
     audio_frame = file.read()
     fn = f"audio-{uuid4()}.wav"
     with open(fn, "wb") as f:
