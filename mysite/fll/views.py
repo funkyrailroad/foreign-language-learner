@@ -1,9 +1,10 @@
+import os
+from uuid import uuid4
 from django.template.response import TemplateResponse
 
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
-import numpy as np
 
 
 from fll.serializers import AudioNoteSerializer
@@ -19,9 +20,13 @@ class TranscriptionView(APIView):
     def post(self, request):
         file = request.data["audio"].file
         audio_frame = file.read()
-        buffer = np.frombuffer(audio_frame, dtype=np.int16).astype(np.float32) / 32767.0
 
-        text = u.transcribe_audio_with_whisper(buffer)
+        fn = f"audio-{uuid4()}.wav"
+        with open(fn, "wb") as f:
+            f.write(audio_frame)
+        text = u.transcribe_audio_with_whisper(fn)
+        os.remove(fn)
+
         return Response({"transcription": text})
 
 
