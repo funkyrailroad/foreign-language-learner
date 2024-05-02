@@ -1,4 +1,4 @@
-from django.test import TestCase
+from django.test import TestCase, TransactionTestCase
 
 import fll.util as u
 
@@ -57,7 +57,7 @@ class TranslationTests(TestCase):
         self.assertEqual(translation, gt_translation)
 
 
-class AudioNoteHyperlinkedViewSetTests(TestCase):
+class AudioNoteHyperlinkedViewSetTests(TransactionTestCase):
     def setUp(self):
         super().setUp()
         self.english = "I want to learn foreign languages."
@@ -91,7 +91,7 @@ class AudioNoteHyperlinkedViewSetTests(TestCase):
         self.assertEqual(data["swahili"], self.swahili)
 
 
-class AudioNoteCustomViewSetTests(TestCase):
+class AudioNoteCustomViewSetTests(TransactionTestCase):
     def setUp(self):
         super().setUp()
         self.fp = "./fll/Voice 182.wav"
