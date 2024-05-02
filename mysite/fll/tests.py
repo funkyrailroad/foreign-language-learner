@@ -68,7 +68,7 @@ class AudioNoteViewSetTests(TestCase):
 
     def test_create(self):
         resp = self.client.post(
-            "/fll/audio-notes/",
+            "/fll/audio-notes-hyperlinked/",
             data={
                 "english": self.english,
                 "german": self.german,

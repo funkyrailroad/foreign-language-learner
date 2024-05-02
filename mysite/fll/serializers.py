@@ -4,7 +4,7 @@ from fll.models import AudioNote
 import fll.util as u
 
 
-class AudioNoteSerializer(serializers.HyperlinkedModelSerializer):
+class AudioNoteHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer):
     """
     # TODO: make translation fields read-only
     """

@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
-from fll.serializers import AudioNoteSerializer
+import fll.serializers as s
 from fll.models import AudioNote
 import fll.util as u
 
@@ -22,10 +22,10 @@ class TranscriptionView(APIView):
         return Response({"transcription": text, **translations})
 
 
-class AudioNoteViewSet(viewsets.ModelViewSet):
+class AudioNoteHyperlinkedViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows audio notes to be viewed or edited.
     """
 
     queryset = AudioNote.objects.all()
-    serializer_class = AudioNoteSerializer
+    serializer_class = s.AudioNoteHyperlinkedModelSerializer
