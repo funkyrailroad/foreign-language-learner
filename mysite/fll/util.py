@@ -44,4 +44,10 @@ def get_translations(text: str) -> dict:
     italian = translate_to_italian(text)
     spanish = translate_to_spanish(text)
     swahili = translate_to_swahili(text)
-    return dict(german=german, italian=italian, spanish=spanish, swahili=swahili)
+    return dict(
+        english=text,
+        german=german,
+        italian=italian,
+        spanish=spanish,
+        swahili=swahili,
+    )
