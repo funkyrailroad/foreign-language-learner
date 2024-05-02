@@ -22,10 +22,16 @@ class TranscriptionView(APIView):
         return Response({"transcription": text, **translations})
 
 
-class AudioNoteHyperlinkedViewSet(viewsets.ModelViewSet):
+class AudioNoteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows audio notes to be viewed or edited.
     """
 
     queryset = AudioNote.objects.all()
-    serializer_class = s.AudioNoteHyperlinkedModelSerializer
+
+    def get_serializer_class(self):
+        serializer = self.request.query_params.get("serializer")
+        if serializer == "hyperlinked":
+            return s.AudioNoteHyperlinkedModelSerializer
+        if serializer == "custom":
+            return s.AudioNoteCustomSerializer

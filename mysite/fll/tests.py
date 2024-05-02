@@ -57,7 +57,7 @@ class TranslationTests(TestCase):
         self.assertEqual(translation, gt_translation)
 
 
-class AudioNoteViewSetTests(TestCase):
+class AudioNoteHyperlinkedViewSetTests(TestCase):
     def setUp(self):
         super().setUp()
         self.english = "I want to learn foreign languages."
@@ -68,7 +68,7 @@ class AudioNoteViewSetTests(TestCase):
 
     def test_create(self):
         resp = self.client.post(
-            "/fll/audio-notes-hyperlinked/",
+            "/fll/audio-notes/?serializer=hyperlinked",
             data={
                 "english": self.english,
                 "german": self.german,
@@ -79,9 +79,48 @@ class AudioNoteViewSetTests(TestCase):
         )
         self.assertEqual(resp.status_code, 201)
         data = resp.json()
-        url = data["url"]
+        url = data["url"] + "?serializer=hyperlinked"
 
         resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        data = resp.json()
+        self.assertEqual(data["english"], self.english)
+        self.assertEqual(data["german"], self.german)
+        self.assertEqual(data["italian"], self.italian)
+        self.assertEqual(data["spanish"], self.spanish)
+        self.assertEqual(data["swahili"], self.swahili)
+
+
+class AudioNoteCustomViewSetTests(TestCase):
+    def setUp(self):
+        super().setUp()
+        self.fp = "./fll/Voice 182.wav"
+        self.english = "I want to learn foreign languages."
+        self.german = "Ich möchte Fremdsprachen lernen."
+        self.italian = "Voglio imparare le lingue straniere."
+        self.spanish = "Quiero aprender idiomas extranjeros."
+        self.swahili = "Nataka kujifunza lugha za kigeni."
+
+    def test_create(self):
+        serializer_qp = "?serializer=custom"
+        resp = self.client.post(
+            "/fll/audio-notes/" + serializer_qp,
+            data={
+                "english": self.english,
+                "german": self.german,
+                "italian": self.italian,
+                "spanish": self.spanish,
+                "swahili": self.swahili,
+            },
+        )
+        breakpoint()
+        self.assertEqual(resp.status_code, 201, resp.json())
+        data = resp.json()
+        print(data)
+        breakpoint()
+        url = data["url"]
+
+        resp = self.client.get(url + serializer_qp)
         self.assertEqual(resp.status_code, 200)
         data = resp.json()
         self.assertEqual(data["english"], self.english)
