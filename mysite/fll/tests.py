@@ -1,4 +1,3 @@
-import os
 from django.test import TestCase
 
 import fll.util as u
@@ -11,7 +10,8 @@ class TranscriptionTests(TestCase):
 
     def test_send_file_in_request(self):
         resp = self.client.post("/fll/transcribe/", data={"audio": open(self.fp, "rb")})
-        transcription = resp.json()["transcription"]
+        data = resp.json()
+        transcription = data["transcription"]
         self.assertEqual(transcription, self.gt_text)
 
     def test_transcribe_audio(self):
