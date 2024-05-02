@@ -1,5 +1,3 @@
-import os
-from uuid import uuid4
 from django.template.response import TemplateResponse
 
 from rest_framework import viewsets
@@ -18,16 +16,10 @@ def index(request):
 
 class TranscriptionView(APIView):
     def post(self, request):
-        file = request.data["audio"].file
-        audio_frame = file.read()
-
-        fn = f"audio-{uuid4()}.wav"
-        with open(fn, "wb") as f:
-            f.write(audio_frame)
-        text = u.transcribe_audio_with_whisper(fn)
-        os.remove(fn)
-
-        return Response({"transcription": text})
+        file = request.data["audio"]
+        text = u.transcribe_in_memory_uploaded_file(file)
+        translations = u.get_translations(text)
+        return Response({"transcription": text, **translations})
 
 
 class AudioNoteViewSet(viewsets.ModelViewSet):
