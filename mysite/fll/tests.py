@@ -98,11 +98,11 @@ class AudioNoteCustomViewSetTests(TransactionTestCase):
     def setUp(self):
         super().setUp()
         self.fp = "./fll/Voice 182.wav"
-        self.english = "I want to learn foreign languages."
-        self.german = "Ich möchte Fremdsprachen lernen."
-        self.italian = "Voglio imparare le lingue straniere."
-        self.spanish = "Quiero aprender idiomas extranjeros."
-        self.swahili = "Nataka kujifunza lugha za kigeni."
+        self.english = "Things to do whenever I'm in a new place. Find a pull-up bar."
+        self.german = "Dinge, die ich tun kann, wenn ich an einem neuen Ort bin. Finde eine Klimmzugstange."
+        self.italian = "Cose da fare ogni volta che mi trovo in un posto nuovo. Trova una barra per trazioni."
+        self.spanish = "Cosas que hacer cuando estoy en un lugar nuevo. Busca una barra de dominadas."
+        self.swahili = "Mambo ya kufanya wakati wowote ninapokuwa katika nafasi mpya. Pata bar ya kuvuta."
 
     def test_create(self):
         serializer_qp = "?serializer=custom"
@@ -127,3 +127,5 @@ class AudioNoteCustomViewSetTests(TransactionTestCase):
         self.assertEqual(data["italian"], self.italian)
         self.assertEqual(data["spanish"], self.spanish)
         self.assertEqual(data["swahili"], self.swahili)
+        self.assertEqual(data["english"], self.english)
+        breakpoint()
