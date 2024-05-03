@@ -79,7 +79,13 @@ class AudioNoteCustomSerializer(serializers.Serializer):
 
     class Meta:
         model = AudioNote
-        fields = ["english", "german", "italian", "spanish", "swahili"]
+        fields = [
+            "english",
+            "german",
+            "italian",
+            "spanish",
+            "swahili",
+        ]
 
     def validate_audio_hash(self, value):
         return value

@@ -1,6 +1,4 @@
 from django.test import TestCase, TransactionTestCase
-from django.core.files.uploadedfile import SimpleUploadedFile
-
 
 import fll.util as u
 
@@ -107,17 +105,11 @@ class AudioNoteCustomViewSetTests(TransactionTestCase):
     def test_create(self):
         serializer_qp = "?serializer=custom"
 
-        audio = SimpleUploadedFile(self.fp, b"dummy_fn", content_type="audio/wav")
-
-        headers = {
-            'Content-Disposition': 'attachment; filename=my_file.txt'
-        }
         resp = self.client.post(
             "/fll/audio-notes/" + serializer_qp,
             data={
                 "audio_hash": open(self.fp, "rb"),
             },
-            headers=headers,
         )
         self.assertEqual(resp.status_code, 201, resp.json())
         data = resp.json()
@@ -126,4 +118,3 @@ class AudioNoteCustomViewSetTests(TransactionTestCase):
         self.assertEqual(data["spanish"], self.spanish)
         self.assertEqual(data["swahili"], self.swahili)
         self.assertEqual(data["english"], self.english)
-        breakpoint()
