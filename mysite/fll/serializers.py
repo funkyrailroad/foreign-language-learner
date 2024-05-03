@@ -45,8 +45,6 @@ class AudioHashField(serializers.Field):
 
     def to_internal_value(self, data):
         return data
-        # the_bytes = data.file.read()
-        # return hashlib.sha256(the_bytes).hexdigest()
 
 
 class GermanTranslationField(serializers.Field):
@@ -63,6 +61,11 @@ class EnglishTranscriptionField(serializers.Field):
 
     def to_internal_value(self, data):
         return data
+
+
+def hash_audio_file(file):
+    the_bytes = file.read()
+    return hashlib.sha256(the_bytes).hexdigest()
 
 
 class AudioNoteCustomSerializer(serializers.Serializer):
@@ -85,12 +88,14 @@ class AudioNoteCustomSerializer(serializers.Serializer):
         audio = validated_data["audio_hash"]
         english = u.transcribe_in_memory_uploaded_file(audio)
         data = {
+            "audio_hash": hash_audio_file(audio),
             "english": english,
             "german": u.translate_to_german(english),
             "italian": u.translate_to_italian(english),
             "spanish": u.translate_to_spanish(english),
             "swahili": u.translate_to_swahili(english),
         }
-        audio_note = AudioNote.objects.create(**validated_data, **data)
+        # TODO: figure out how to validate these translations
+        audio_note = AudioNote.objects.create(**data)
         audio_note.save()
         return audio_note
