@@ -1,12 +1,4 @@
 import hashlib
-from rest_framework.fields import (  # NOQA # isort:skip
-    CreateOnlyDefault, CurrentUserDefault, SkipField, empty
-)
-from rest_framework.fields import get_error_detail
-from django.core.exceptions import ValidationError as DjangoValidationError
-from rest_framework.settings import api_settings
-from rest_framework.exceptions import ValidationError
-from collections.abc import Mapping
 
 from rest_framework import serializers
 
@@ -99,7 +91,6 @@ class AudioNoteCustomSerializer(serializers.Serializer):
             "spanish": u.translate_to_spanish(english),
             "swahili": u.translate_to_swahili(english),
         }
-        print(data)
         audio_note = AudioNote.objects.create(**validated_data, **data)
         audio_note.save()
         return audio_note

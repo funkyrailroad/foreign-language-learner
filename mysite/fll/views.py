@@ -30,13 +30,8 @@ class AudioNoteViewSet(viewsets.ModelViewSet):
     """
 
     queryset = AudioNote.objects.all()
-    # parser_classes = [FileUploadParser]
-    # parser_classes = [MultiPartParser]
-    # parser_classes = [FormParser]
 
     def get_serializer_class(self):
-        print(self.request.data)
-        print(self.request.FILES)
         serializer = self.request.query_params.get("serializer")
         if serializer == "hyperlinked":
             return s.AudioNoteHyperlinkedModelSerializer

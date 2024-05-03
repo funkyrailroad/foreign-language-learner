@@ -116,8 +116,6 @@ class AudioNoteCustomViewSetTests(TransactionTestCase):
             "/fll/audio-notes/" + serializer_qp,
             data={
                 "audio_hash": open(self.fp, "rb"),
-                # "audio_hash": audio,
-                # "name": "dummy_fn.wav",
             },
             headers=headers,
         )
