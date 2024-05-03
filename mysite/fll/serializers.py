@@ -39,7 +39,10 @@ class AudioNoteHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer
 
 class AudioNoteCustomSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    english = serializers.CharField()
+    # audio = serializers.ModelField(model_field=AudioNote()._meta.get_field("audio_hash"))
+    # audio_hash = serializers.CharField()
+    audio_hash = serializers.ModelField(model_field=AudioNote()._meta.get_field("audio_hash"))
+    english = serializers.CharField(read_only=True)
     german = serializers.CharField(read_only=True)
     italian = serializers.CharField(read_only=True)
     spanish = serializers.CharField(read_only=True)
@@ -49,7 +52,15 @@ class AudioNoteCustomSerializer(serializers.Serializer):
         model = AudioNote
         fields = ["english", "german", "italian", "spanish", "swahili"]
 
+    # def get_audio(self, obj):
+    #     breakpoint()
+    #     return super().get_audio(self, obj)
+    def validate_audio_hash(self, value):
+        breakpoint()
+        print()
+
     def create(self, validated_data):
+        breakpoint()
         english = validated_data["english"]
         data = {
             "german": u.translate_to_german(english),
