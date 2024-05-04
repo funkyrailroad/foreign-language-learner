@@ -103,5 +103,4 @@ class AudioNoteCustomSerializer(serializers.Serializer):
         }
         # TODO: figure out how to validate these translations
         audio_note = AudioNote.objects.create(**data)
-        audio_note.save()
         return audio_note
