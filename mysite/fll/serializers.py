@@ -6,14 +6,25 @@ from fll.models import AudioNote
 import fll.util as u
 
 
+class AudioHashField(serializers.Field):
+    def to_representation(self, obj):
+        return obj
+
+    def to_internal_value(self, data):
+        return data
+
+
 class AudioNoteHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer):
     """
     # TODO: make translation fields read-only
     """
 
+    audio_hash = AudioHashField(write_only=True)
+
     class Meta:
         model = AudioNote
         fields = [
+            "audio_hash",
             "english",
             "german",
             "italian",
@@ -29,22 +40,18 @@ class AudioNoteHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer
         ]
 
     def create(self, validated_data):
-        english = validated_data["english"]
-        validated_data["german"] = u.translate_to_german(english)
-        validated_data["italian"] = u.translate_to_italian(english)
-        validated_data["spanish"] = u.translate_to_spanish(english)
-        validated_data["swahili"] = u.translate_to_swahili(english)
-        audio_note = AudioNote.objects.create(**validated_data)
-        audio_note.save()
+        audio = validated_data["audio_hash"]
+        english = u.transcribe_in_memory_uploaded_file(audio)
+        data = {
+            "audio_hash": hash_audio_file(audio),
+            "english": english,
+            "german": u.translate_to_german(english),
+            "italian": u.translate_to_italian(english),
+            "spanish": u.translate_to_spanish(english),
+            "swahili": u.translate_to_swahili(english),
+        }
+        audio_note = AudioNote.objects.create(**data)
         return audio_note
-
-
-class AudioHashField(serializers.Field):
-    def to_representation(self, obj):
-        return obj
-
-    def to_internal_value(self, data):
-        return data
 
 
 class GermanTranslationField(serializers.Field):
