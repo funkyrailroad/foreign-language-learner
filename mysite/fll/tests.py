@@ -71,7 +71,7 @@ class AudioNoteHyperlinkedViewSetTests(TransactionTestCase):
         resp = self.client.post(
             "/fll/audio-notes/?serializer=hyperlinked",
             data={
-                "audio_hash": open(self.fp, "rb"),
+                "audio": open(self.fp, "rb"),
             },
         )
         self.assertEqual(resp.status_code, 201)
@@ -104,7 +104,7 @@ class AudioNoteCustomViewSetTests(TransactionTestCase):
         resp = self.client.post(
             "/fll/audio-notes/" + serializer_qp,
             data={
-                "audio_hash": open(self.fp, "rb"),
+                "audio": open(self.fp, "rb"),
             },
         )
         self.assertEqual(resp.status_code, 201, resp.json())

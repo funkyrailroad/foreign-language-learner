@@ -37,3 +37,14 @@ class AudioNoteViewSet(viewsets.ModelViewSet):
             return s.AudioNoteHyperlinkedModelSerializer
         if serializer == "custom":
             return s.AudioNoteCustomSerializer
+
+    def create(self, request):
+        audio = request.data["audio"]
+        english = u.transcribe_in_memory_uploaded_file(audio)
+        request.data["audio_hash"] = s.hash_audio_file(audio)
+        request.data["english"] = english
+        request.data["german"] = u.translate_to_german(english)
+        request.data["italian"] = u.translate_to_italian(english)
+        request.data["spanish"] = u.translate_to_spanish(english)
+        request.data["swahili"] = u.translate_to_swahili(english)
+        return super().create(request)

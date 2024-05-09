@@ -32,26 +32,6 @@ class AudioNoteHyperlinkedModelSerializer(serializers.HyperlinkedModelSerializer
             "swahili",
             "url",
         ]
-        read_only_fields = [
-            "german",
-            "italian",
-            "spanish",
-            "swahili",
-        ]
-
-    def create(self, validated_data):
-        audio = validated_data["audio_hash"]
-        english = u.transcribe_in_memory_uploaded_file(audio)
-        data = {
-            "audio_hash": hash_audio_file(audio),
-            "english": english,
-            "german": u.translate_to_german(english),
-            "italian": u.translate_to_italian(english),
-            "spanish": u.translate_to_spanish(english),
-            "swahili": u.translate_to_swahili(english),
-        }
-        audio_note = AudioNote.objects.create(**data)
-        return audio_note
 
 
 class GermanTranslationField(serializers.Field):
@@ -78,11 +58,11 @@ def hash_audio_file(file):
 class AudioNoteCustomSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     audio_hash = AudioHashField(write_only=True)
-    english = EnglishTranscriptionField(read_only=True)
-    german = GermanTranslationField(read_only=True)
-    italian = serializers.CharField(read_only=True)
-    spanish = serializers.CharField(read_only=True)
-    swahili = serializers.CharField(read_only=True)
+    english = EnglishTranscriptionField()
+    german = GermanTranslationField()
+    italian = serializers.CharField()
+    spanish = serializers.CharField()
+    swahili = serializers.CharField()
 
     class Meta:
         model = AudioNote
@@ -98,16 +78,4 @@ class AudioNoteCustomSerializer(serializers.Serializer):
         return value
 
     def create(self, validated_data):
-        audio = validated_data["audio_hash"]
-        english = u.transcribe_in_memory_uploaded_file(audio)
-        data = {
-            "audio_hash": hash_audio_file(audio),
-            "english": english,
-            "german": u.translate_to_german(english),
-            "italian": u.translate_to_italian(english),
-            "spanish": u.translate_to_spanish(english),
-            "swahili": u.translate_to_swahili(english),
-        }
-        # TODO: figure out how to validate these translations
-        audio_note = AudioNote.objects.create(**data)
-        return audio_note
+        return AudioNote.objects.create(**validated_data)
