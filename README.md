@@ -7,10 +7,6 @@ source .bash_env
 
 Start it up:
 ```
-./run.sh
-```
-or
-```
 ./run_dev.sh
 ```
 
@@ -24,15 +20,32 @@ Apply migrations
 ./migrate.sh
 ```
 
-Start a new django app
-```
-./startapp.sh
-```
-
-Run full django test suite
+Run django test suite
 ```
 ./test.sh
 ```
+
+Transcribe and translate audio file (wav and mp3 formats are supported)
+```
+python translate_audio.py [--fp <file-path>] [--base_url <base-url>]
+```
+NOTE: If you see a connection error, it is likely due to the backend having
+tried to connect to the database before it was ready. This can be remedied by
+restarting the backend container or by powering down the whole project and
+starting it up again.
+
+Power it down
+```
+./down.sh
+```
+
+# Helper commands
+
+Start it up:
+```
+./run.sh
+```
+or
 
 Watch the logs
 ```
@@ -49,9 +62,9 @@ Psql into the database
 ./psql.sh
 ```
 
-Power it down
+Start a new django app
 ```
-./down.sh
+./startapp.sh
 ```
 
 
