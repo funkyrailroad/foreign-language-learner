@@ -1,4 +1,18 @@
-# Instructions
+# About
+
+This project was created to ease self-directed learning of foreign languages.
+It relies on the premise that it is easier and more productive to learn
+vocabulary and grammar if the subject matter is related to your interests and
+every day experiences than otherwise uninteresting and uncommon material.
+
+Record voice memos throughout your day of things you would like to be able to
+say in another language and use this project to generate flashcards for study.
+
+The currently supported languages are German, Italian, Spanish and
+Swahili.
+
+
+# Usage
 
 Source the necessary bash environment variables:
 ```
